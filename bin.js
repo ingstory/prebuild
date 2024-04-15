@@ -45,7 +45,13 @@ if (opts['upload-all']) {
   glob('prebuilds/**/*', { nodir: true }).then(uploadFiles, onbuilderror)
 } else {
   var files = []
-  eachSeries(opts.prebuild, function (target, next) {
+  var filteredTargets = opts.prebuild.filter(function (target) {
+    return !opts.exclude.some(function (exclude) {
+      return target.target.startsWith(exclude)
+    })
+  })
+
+  eachSeries(filteredTargets, function (target, next) {
     prebuild(opts, target.target, target.runtime, function (err, tarGz) {
       if (err) return next(err)
       files.push(tarGz)

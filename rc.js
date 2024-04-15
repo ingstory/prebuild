@@ -20,7 +20,10 @@ var rc = require('rc')('prebuild', {
   format: false,
   'include-regex': '\\.node$',
   'tag-prefix': 'v',
-  prerelease: false
+  prerelease: false,
+  exclude: [
+    'v17'
+  ],
 }, minimist(process.argv, {
   alias: {
     target: 't',
