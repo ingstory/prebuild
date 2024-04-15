@@ -1,5 +1,5 @@
 var minimist = require('minimist')
-var targets = require('node-abi').supportedTargets
+var _targets = require('node-abi').supportedTargets
 var detectLibc = require('detect-libc')
 var napi = require('napi-build-utils')
 
@@ -22,7 +22,9 @@ var rc = require('rc')('prebuild', {
   'tag-prefix': 'v',
   prerelease: false,
   exclude: [
-    'v17'
+    { runtime: 'node', target: '17'},
+    { runtime: 'node', target: '13'},
+    { runtime: 'node', target: '8'},
   ],
 }, minimist(process.argv, {
   alias: {
@@ -41,6 +43,12 @@ var rc = require('rc')('prebuild', {
     'target'
   ]
 }))
+
+var targets = _targets.filter(function (target) {
+  return !rc.exclude.some(function (excludeTarget) {
+    return target.target.startsWith(excludeTarget.target)
+  })
+});
 
 if (rc.path === true) {
   delete rc.path
@@ -67,9 +75,23 @@ if (rc.target) {
   }
 }
 
+function filterTargets(targets, excludeVersions) {
+  return targets.filter(target => {
+    const { runtime, target: version } = target;
+    return !excludeVersions.some(excludeVersion => {
+      if (typeof excludeVersion === 'string') {
+        return version.startsWith(excludeVersion);
+      } else if (excludeVersion instanceof RegExp) {
+        return excludeVersion.test(version);
+      }
+      return false;
+    });
+  });
+}
+
 if (rc.all === true && !napi.isNapiRuntime(rc.runtime)) {
   delete rc.prebuild
-  rc.prebuild = targets
+  rc.prebuild = filterTargets(targets, rc.exclude)
 }
 
 if (rc['upload-all']) {
