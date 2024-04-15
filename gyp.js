@@ -3,7 +3,7 @@ var path = require('path')
 var os = require('os')
 
 var backends = {
-  'node-gyp': require('node-gyp')(),
+  'node-gyp': require('@ingstory/node-gyp')(),
   'node-ninja': require('node-ninja')(),
   'nw-gyp': require('nw-gyp')()
 }

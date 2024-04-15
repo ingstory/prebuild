@@ -1,5 +1,5 @@
 {
-  "name": "prebuild",
+  "name": "@ingstory/prebuild",
   "version": "13.0.0",
   "description": "A command line tool for easily making prebuilt binaries for multiple versions of node, electron or node-webkit on a specific platform",
   "scripts": {
@@ -30,8 +30,8 @@
     "glob": "^10.3.10",
     "minimist": "^1.2.8",
     "napi-build-utils": "^1.0.2",
-    "node-abi": "github:choyunsung/node-abi",
-    "node-gyp": "github:choyunsung/node-gyp",
+    "node-abi": "^3.57.0",
+    "@ingstory/node-gyp": "^10.1.1",
     "node-ninja": "^1.0.2",
     "noop-logger": "^0.1.1",
     "npm-which": "^3.0.1",
@@ -51,7 +51,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/prebuild/prebuild.git"
+    "url": "https://github.com/ingstory/prebuild.git"
   },
   "author": "Mathias Buus (@mafintosh)",
   "contributors": [
@@ -63,9 +63,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/prebuild/prebuild/issues"
+    "url": "https://github.com/ingstory/prebuild/issues"
   },
-  "homepage": "https://github.com/prebuild/prebuild",
+  "homepage": "https://github.com/ingstory/prebuild",
   "engines": {
     "node": "^16.14.0 || >=18.0.0"
   }
