@@ -12,7 +12,7 @@ var backends = {
 var jsEngine = process.jsEngine || 'v8'
 if (jsEngine !== 'v8') {
   backends['node-gyp'] = require(path.join(
-    path.dirname(process.execPath), 'node_modules/npm/node_modules/node-gyp'))()
+    path.dirname(process.execPath), 'node_modules/npm/node_modules/@ingstory/node-gyp'))()
 }
 
 function runGyp (opts, cb) {
