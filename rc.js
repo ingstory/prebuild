@@ -25,6 +25,7 @@ var rc = require('rc')('prebuild', {
     { runtime: 'node', target: '17'},
     { runtime: 'node', target: '13'},
     { runtime: 'node', target: '8'},
+    { runtime: 'electron', target: '20'},
   ],
 }, minimist(process.argv, {
   alias: {
@@ -46,7 +47,7 @@ var rc = require('rc')('prebuild', {
 
 var targets = _targets.filter(function (target) {
   return !rc.exclude.some(function (excludeTarget) {
-    return target.target.startsWith(excludeTarget.target)
+    return excludeTarget.runtime === target.runtime && target.target.startsWith(excludeTarget.target)
   })
 });
 
